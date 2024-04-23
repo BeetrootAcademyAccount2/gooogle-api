@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Maps Api Demo</title>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?&loading=async&callback=initMap&libraries=places"
+    ></script>
+    <script src="map.js" defer></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <label for="city">City</label>
+    <input id="city" type="text" name="city" />
+    <button id="btnGetCity">Get City</button>
+  </body>
+</html>
