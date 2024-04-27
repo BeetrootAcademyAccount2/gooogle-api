@@ -17,6 +17,52 @@ function initMap() {
     position: location,
     map: map,
   });
+
+  const originAutocomplete = new google.maps.places.Autocomplete(
+    document.getElementById("origin")
+  );
+
+  const destinationAutocomplete = new google.maps.places.Autocomplete(
+    document.getElementById("destination")
+  );
+
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer({ map: map });
+
+  function calculateAndDisplayRoute() {
+    const origin = document.getElementById("origin").value;
+    const destination = document.getElementById("destination").value;
+
+    console.log(origin);
+    console.log(destination);
+    if (!origin || !destination) {
+      return;
+    }
+
+    const request = {
+      origin: origin,
+      destination: destination,
+      travelMode: google.maps.TravelMode.TRANSIT,
+    };
+
+    directionsService.route(request, (response, status) => {
+      if (status === "OK") {
+        console.log(response);
+        directionsRenderer.setDirections(response);
+      } else {
+        console.error(
+          "The path creation failed with the following error: ",
+          status
+        );
+      }
+    });
+  }
+
+  originAutocomplete.addListener("place_changed", calculateAndDisplayRoute);
+  destinationAutocomplete.addListener(
+    "place_changed",
+    calculateAndDisplayRoute
+  );
 }
 
 function geocodeCity(city) {
